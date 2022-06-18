@@ -1,6 +1,7 @@
 public class AccountsSelector 
 {
     public static final String RECORDTYPE_PJ = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PJ').getRecordTypeId();
+    public static final String RECORDTYPE_PF = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PF').getRecordTypeId();
 
     public static List<Account> getByCnpj(Set<String> setAccCnpj)
     {
