@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-card">
+        <lightning-card variant="Narrow" title="Contatos Relacionados" icon-name="standard:contact">
+            <template if:true={showGrid}>
+                <lightning-datatable
+                    columns={gridColumns}
+                    data={gridData}
+                    is-loading={isLoading}
+                    key-field="Id"
+                    hide-checkbox-column="true"
+                ></lightning-datatable>
+            </template>
+
+            <template if:true={isContact}>
+                <div class="slds-box slds-box_small slds-notify slds-notify_alert slds-alert_warning">Conta sem contatos relacionados</div>
+            </template>
+            <p slot="footer"></p>
+        </lightning-card>
+    </div>
+    
+</template>
