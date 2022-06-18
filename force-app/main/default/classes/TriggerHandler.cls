@@ -9,7 +9,7 @@ public abstract class TriggerHandler
     public TriggerHandler()
     {
         this.newList = Trigger.new;
-        this.newList = Trigger.old;
+        this.oldList = Trigger.old;
         this.newMap = Trigger.newMap;
         this.oldMap = Trigger.oldMap;
     }
