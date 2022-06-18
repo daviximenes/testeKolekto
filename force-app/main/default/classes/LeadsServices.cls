@@ -10,18 +10,39 @@ public with sharing class LeadsServices
             {
                 List<Database.SaveResult> srList = new List<Database.SaveResult>();
 
-                srList = String.isEmpty(newLead.CompanyId__c) 
-                ? AccountsServices.insertAccountWithLeadInfo(newLead.Company)
-                : AccountsServices.updateAccountWithExistingLeadCnpj(newLead.Company, newLead.CompanyId__c);
-
-                Set<Id> setAccIdToRelated = new Set<Id>();
-                for (Database.SaveResult sr : srList) 
+                if(String.isEmpty(newLead.CompanyId__c))
                 {
-                    setAccIdToRelated.add(sr.getId());
+                    List<Account> lstAcc = new List<Account>();
+                    lstAcc.add(new Account(Name = newLead.Company));
+                    srList = AccountsServices.insertAccounts(lstAcc);
+                }else{
+                    List<Account> lstAcc = new List<Account>();
+                    lstAcc = AccountsSelector.getByCnpj(new Set<String>{newLead.CompanyId__c});
+                    for(Account acc : lstAcc)
+                    {
+                        acc.CompanyId__c = newLead.CompanyId__c;
+                        acc.Name = newLead.Company;
+                    }
+                    srList = AccountsServices.updateAccounts(lstAcc);
                 }
 
-                //Get User Info for Contact name,email,phone
-                ContactsService.insertContact(setAccIdToRelated, newLead.Company);
+                List<Contact> lstContToInsert = new List<Contact>();
+                User currentUser = UsersSelector.getById(UserInfo.getUserId());
+
+                for (Database.SaveResult sr : srList) 
+                {
+                    if(sr.isSuccess())
+                    {
+                        lstContToInsert.add(new Contact(FirstName = currentUser.FirstName,
+                                                        LastName = currentUser.LastName,
+                                                        Email = currentUser.Email,
+                                                        Phone = currentUser.Phone,
+                                                        AccountId = sr.getId()));
+                    }
+                }
+                
+                if(!lstContToInsert.isEmpty())
+                    ContactsService.insertContact(lstContToInsert);
             }
         }
     } 
