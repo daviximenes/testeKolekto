@@ -20,6 +20,7 @@ public with sharing class Leads extends TriggerHandler
 
     override protected void onBeforeUpdate()
     {
+        LeadsServices.verifyDuplicatedLead(this.lstNewLeads, this.mapOldLeads);
     }
 
     override protected void onBeforeDelete()
