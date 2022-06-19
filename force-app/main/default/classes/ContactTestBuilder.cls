@@ -33,4 +33,10 @@ public class ContactTestBuilder implements ITestBuilder
         record.Email = email;
         return this;
     }
+
+    public ContactTestBuilder withAccountId(Id accId)
+    {
+        record.AccountId = accId;
+        return this;
+    }
 }
