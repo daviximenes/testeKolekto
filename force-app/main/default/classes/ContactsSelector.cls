@@ -1,6 +1,6 @@
 public with sharing class ContactsSelector 
 {
-    public static final String RECORDTYPE_DEFAULT = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Default').getRecordTypeId();
+    public static final String RECORDTYPE_DEFAULT = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName().get('Default').getRecordTypeId();
 
     public static List<Contact> getBySetId(String accName)
     {

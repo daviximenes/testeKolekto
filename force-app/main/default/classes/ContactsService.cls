@@ -1,8 +1,12 @@
 public with sharing class ContactsService {
     
-    public static void insertContact(List<Contact> lstCont)
+    public static List<Database.SaveResult> insertContacts(List<Contact> lstCont)
     {
+        List<Database.SaveResult> srList = new List<Database.SaveResult>();
+
         if(!lstCont.isEmpty())
-            insert lstCont;
+            srList = Database.insert(lstCont, false);
+
+        return srList;
     }
 }

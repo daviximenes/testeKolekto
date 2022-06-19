@@ -13,7 +13,7 @@ public with sharing class LeadsServices
                 if(String.isEmpty(newLead.CompanyId__c))
                 {
                     List<Account> lstAcc = new List<Account>();
-                    lstAcc.add(new Account(Name = newLead.Company));
+                    lstAcc.add(new Account(Name = newLead.Company, RecordTypeId = AccountsSelector.RECORDTYPE_PJ));
                     srList = AccountsServices.insertAccounts(lstAcc);
                 }else{
                     List<Account> lstAcc = new List<Account>();
@@ -42,7 +42,7 @@ public with sharing class LeadsServices
                 }
                 
                 if(!lstContToInsert.isEmpty())
-                    ContactsService.insertContact(lstContToInsert);
+                    ContactsService.insertContacts(lstContToInsert);
             }
         }
     } 
