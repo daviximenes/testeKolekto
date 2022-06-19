@@ -1,6 +1,6 @@
 public with sharing class LeadsServices 
 {
-    public static void verifyDuplicatedLead(List<Lead> lstLeads, Map<Id, Lead> mapOldLeads)
+    public static void verifyDuplicity(List<Lead> lstLeads, Map<Id, Lead> mapOldLeads)
     {
         for(Lead newLead : lstLeads)
         {
