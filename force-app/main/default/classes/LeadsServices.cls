@@ -33,6 +33,7 @@ public with sharing class LeadsServices
                 {
                     if(sr.isSuccess())
                     {
+                        newLead.Account__c = sr.getId();
                         lstContToInsert.add(new Contact(FirstName = currentUser.FirstName,
                                                         LastName = currentUser.LastName,
                                                         Email = currentUser.Email,
